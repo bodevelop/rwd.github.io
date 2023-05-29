@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="hu">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reszponzív weboldal készítése</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body>
+    <nav id="navbar" class="menu">
+      <header>Reszponzív weboldal készítése</header>
+        <ul>
+        <li><a class="nav-link" href="#Bevezetés">Bevezetés</a></li>
+        <li>
+          <a class="nav-link" href="#Első_lépés"
+            >Első lépés</a
+          >
+        </li>
+        <li>
+          <a class="nav-link" href="#Rácsos_nézet"
+            >Rácsos nézet</a
+          >
+        </li>
+        <li><a class="nav-link" href="#Reszponzív_képkezelés">Reszponzív képkezelés</a></li>
+        <li><a class="nav-link" href="#Media_query">Media query</a></li>
+        <li><a class="nav-link" href="#Forrás">Forrás</a></li>
+      </ul>
+    </nav>
+    <main id="main-doc">
+      <section class="main-section" id="Bevezetés">
+        <header>Bevezetés</header>
+        <article>
+          <p>
+            A <i>responsive web design</i> (<i>RWB</i>) alapú weboldal képes rugalmasan alkalmazkodni a különféle kijelzők méretéhez és felbontásához, könnyű olvashatóságot és egyszerű navigációt biztosítva a felhasználó számára. A reszponzív weboldal tehát minden eszközön az adott képernyő sajátosságaihoz igazodva jelenik meg.
+          </p>
+          <p>
+            A reszponzív weboldal készítése történhet egy adott sablon alapján is (például a WordPress-ben)vagy saját, egyéni megjelenésű oldalt is készíthetünk a HTML és a CSS megfelelő használatával. 
+          </p>
+          <p>
+          Technikai szempontból a reszponzív webdesign három legfontosabb alapeleme a következő:
+          </p>
+          <ul>
+            <li>
+          rugalmas, rács (<i>grid</i>) alapú elrendezés; 
+            </li>
+            <li>
+     rugalmas, méretarányos képek és videók;
+            </li>
+                        <li>
+     CSS media query.
+            </li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="main-section" id="Első_lépés">
+        <header>Első lépés</header>
+        <article>
+          <p>
+          Még mielőtt rátérnénk a reszponzív weboldalak fent említett három fontos elemére, először is meg kell említeni egy fontos beállítást a HTML fájlunkban.
+          </p>
+          <p>Ez egy <i>meta-tag</i>, amelyet a <i>head</i> szekcióba kell beszúrjunk:
+          </p>
+          <h4>HTML</h4>
+          <code>
+          &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"/&gt;
+          </code>
+          <p>
+          A <i> <b>viewport</b> meta-tag</i> utasításokat ad a böngészőnek az oldal méreteinek és méretezésének szabályozására.
+          </p>
+          <ul>
+          <li>A <i>width=device-width</i> úgy állítja be az oldal szélességét, hogy az kövesse az eszköz képernyőszélességét, ami eszköztől függően változik.
+          </li>
+          <li>Az <i>initial-scale=1.0</i> pedig beállítja a kezdeti nagyítási szintet.
+          </li>
+          </ul>
+        </article>
+      </section>
+
+      <section class="main-section" id="Rácsos_nézet">
+        <header>Rácsos nézet</header>
+        <article>
+          <p>
+          A legtöbb reszponzív weboldal alapja a rácsos nézet (<i>grid-view</i>), ami azt jelenti, hogy az oldal oszlopokra van osztva. Ez megkönyyíti a weboldal elemeinek az elhelyezését a különböző képernyők méreteivel arányos kivitelezésben. A reszponzív rácsos nézet néha akár 12 oszlopos is lehet, aminek a teljes szélessége 100%-os, és ami a böngészőablak átméretezésekor zsugorodik és bővül.
+          </p>
+          <p>A rácsos nézetű megjelenéshez az első szükséges lépés a <i>box-sizing</i> beállítása a CSS-ben. A <i>border-box</i> tulajdonság hozzáadásával biztosítjuk, hogy a weboldal minden egyes eleme plusz keret (<i>border</i>) és margó (<i>padding</i>) nélkül jelenjen meg:
+          </p>
+          <h4>CSS</h4>
+          <code>
+          * {
+  box-sizing: border-box;
+}
+          </code>
+          <p>
+          Ezután az oldalunkat a kívánt számú oszlopra bonthatjuk, megadva az egyes oszlopok szélességét a 100%-os teljes képernyőhöz viszonyítva. Két oszlop esetén például, ahol az egyik oszlopban a menü, a másikban pedig a tartalom jelenik meg, a következő kódolást használhatjuk:
+          </p>
+          <code>
+            .menu {
+                width: 25%;
+                float: left;
+            }
+            .main {
+                width: 75%;
+                float: left;
+            }
+          </code>
+                    <p>
+          Több oszlop esetén minden egyes oszlop szélességét meg kell határoznunk. Ha nem egy sórban szeretnénk az összes elemet elhelyezni, akkor nem szükséges, hogy az oszlopok szélességének az összértéke 100% legyen. Az egyes oszlopok szélességének az értéke az oldal egészéhez viszonyul, vagy ahhoz az elemhez, ami alá van rendelve a HTML fájlban. Így tehát egy 12 oszlopos nézetet a következőképp is feloszthatunk:
+          </p>
+                    <h4>CSS</h4>
+
+          <code>
+.col-1 {width: 8.33%;}
+.col-2 {width: 16.66%;}
+.col-3 {width: 25%;}
+.col-4 {width: 33.33%;}
+.col-5 {width: 41.66%;}
+.col-6 {width: 50%;}
+.col-7 {width: 58.33%;}
+.col-8 {width: 66.66%;}
+.col-9 {width: 75%;}
+.col-10 {width: 83.33%;}
+.col-11 {width: 91.66%;}
+.col-12 {width: 100%;}
+          </code>
+
+          <p>
+          Ha azt szeretnénk, hogy minden egyes oszlop egy irányba igazodjon, egyforma margóval és kerettel rendelkezzen, akkor ezeket a tulajdonságokat a <b>*</b> használatával egy kóddal is megadhatjuk, amennyiben a különböző .col-okat közös osztályba (<i>class</i>) soroltuk a HTML fájlunkban:
+          </p>
+          <h4>CSS</h4>
+          <code>
+[class*="col-"] {
+  float: left;
+  padding: 15px;
+  border: 1px solid red;
+}
+          </code>
+
+          <p>
+          Ha több oszloppal dolgozunk, akkor a HTML fájlunkban mindig meg kell adnunk, hogy az oszlopok hogyan rendeződnek el a sorokban (<i>row</i>). Amennyiben például .col-3-at (szélesseége: 25%) és a .col-9-et (szélesseége: 75%) egy sorban szeretnénk elhelyezni, akkor ezt a HTML fájlban kell eszerint elrendezzük:
+          </p>
+          <h4>HTML</h4>
+          <code>
+&lt;div class="row"&gt;
+  &lt;div class="col-3"&gt;...&lt;/div&gt;
+  &lt;div class="col-9"&gt;...&lt;/div&gt;
+&lt;/div&gt;
+          </code>
+
+          <p>
+          A soron belüli oszlopok "float" értékénél minden esetben "bal" (<i>left</i>) van megadva, ezért kikerülnek az oldal áramlásából, és a többi elem esetenként úgy kerülhet elhelyezésre, mintha az oszlopok nem is léteznének. Hogy ezt megakadályozzuk, meg kell adnunk egy pszeudo stílus tulajdonságot, amely törli ezt:
+          </p>
+          <h4>CSS</h4>
+          <code>
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+          </code>
+
+            <p>
+          Az eddigieket szemléltetve lássunk egy konkrét példát, hogyan épülhet fel egy RWD alapú weboldal, amely négy oszlopot tartalmaz:
+          </p>
+          <h4>HTML</h4>
+          <code>
+&lt;!DOCTYPE html>
+&lt;html lang="hu">
+
+&lt;head>
+&nbsp;&nbsp;&lt;meta name="viewport" content="width=device-width, initial-scale=1.0">
+&nbsp;&nbsp;&lt;title>Magyarország&lt;/title>
+&nbsp;&nbsp;&lt;link rel="stylesheet" href="styles.css">
+&lt;head>
+
+&lt;body>
+&nbsp;&nbsp;&lt;div class="col-1 header">
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1>Magyarország&lt;/h1>
+&nbsp;&nbsp;&lt;/div>
+&nbsp;&nbsp;&lt;div class="row">
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-2 menu">
+    &nbsp&nbsp&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;ul>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li>Államforma&lt;/li>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li>Határos országok&lt;/li>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li>Népesség&lt;/li>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li>Nyelv&lt;/li>
+      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;li>Főváros&lt;/li>
+    &nbsp&nbsp&nbsp&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/ul>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;div class="col-3">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;h1>Magyarország&lt;/h1>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p>Magyarország állam Közép-Európában, a Kárpát-medence közepén. 1989 óta parlamentáris köztársaság.&lt;/p>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p>Északról Szlovákia, északkeletről Ukrajna, keletről és délkeletről Románia, délről Szerbia és Horvátország, délnyugatról Szlovénia, nyugatról pedig Ausztria határolja.&lt;/p>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p>Népessége a 21. században 10 millió alá csökkent.&lt;/p>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p>Hivatalos nyelve a magyar, amely a legnagyobb az uráli nyelvcsaládba tartozó nyelvek közül.&lt;/p>
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p>Fővárosa és legnépesebb városa Budapest.&lt;/p>
+  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;/div>
+&nbsp;&nbsp;&lt;/div>
+&nbsp;&nbsp;&lt;div class="col-4 footer">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;p>Forrás: &lt;a href="https://hu.wikipedia.org/
+    wiki/Magyarország">Wikipédia&lt;/a>&lt;/p>
+&nbsp;&nbsp;&lt;/div>
+&lt;/body>
+&lt;/html>
+          </code>
+          <h4>CSS</h4>
+          <code>
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+    font-family: "Lucida Sans", sans-serif;
+    background-color: beige;
+  }
+
+[class*="col-"] {
+  float: left;
+  padding: 15px;
+}
+
+.col-1 {width: 100%;}
+.col-2 {width: 30%;}
+.col-3 {width: 70%;}
+.col-4 {width: 100%;}
+
+.row::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+.header {
+  background-color: #CE2939;
+  color: #ffffff;
+  padding: 15px;
+}
+
+.menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.menu li {
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #477050;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.menu li:hover {
+  background-color: #CE2939;
+}
+
+.footer a {
+    color: #477050;
+}
+
+.footer a:hover {
+    color: #CE2939;
+}
+          </code>
+        </article>
+      </section>
+
+      <section class="main-section" id="Reszponzív_képkezelés">
+        <header>Reszponzív képkezelés</header>
+        <article>
+          <p>
+            Hogy a képek reszponzív módon jelenjenek meg fontos, hogy a szélesség 100%-ra legyen állítva, amelyhez alkalmazkodik a magasság:
+          </p>
+          <h4>CSS</h4>
+          <code>
+img {
+  width: 100%;
+  height: auto;
+}
+          </code>
+          <p>
+          Mivel azonban ez a beállítás a képet a képernyőhöz igazítva az eredeti méreténél nagyobbra is méretezheti, sok esetben jobb megoldás a "max-width" tulajdonság használata. Így a kép méretei az eredeti méretéhez képest csökkenhetnek, ha szükséges, de nem nem lehet nagyobb, így a kép eredeti felbontásának a minősége nem csökken:
+          </p>
+          <h4>CSS</h4>
+          <code>
+img {
+  max-width: 100%;
+  height: auto;
+}
+          </code>
+         <p>
+          A <b>háttérképek</b> ugyancsak alkalmazkodhatnak a felhasználó által használt képernyő méretéhez. Ennek érdekében a kép eredeti méretétől függően három módszert használhatunk:
+        <ul>
+          <li>
+            <p>
+Ha a "background-size" tulajdonság "contain" értékre van állítva, akkor a háttérkép megpróbál illeszkedni a tartalmi területhez. A kép azonban megtartja az arányait:
+            </p>
+            <h4>CSS</h4>
+            <code>
+              div {
+  width: 100%;
+  height: 500px;
+  background-size: contain;
+  }
+            </code>
+          </li>
+          <li>
+            <p>
+Ha a background-size tulajdonság "100% 100%" értékre van állítva, a háttérkép a teljes tartalmi területre kiterjed:
+            </p>
+            <h4>CSS</h4>
+            <code>
+              div {
+  width: 100%;
+  height: 500px;
+  background-size: 100% 100%;
+  }
+            </code>
+          </li>
+          <li>
+            <p>
+Ha a "background-size" tulajdonság "cover" értékre van állítva, akkor a háttérkép úgy méreteződik, hogy a teljes tartalmi területet lefedje, megtartva a kép eredeti arányait; ebben az esetben a kép egy része eltűnhet:
+            </p>
+            <h4>CSS</h4>
+            <code>
+div {
+  width: 100%;
+  height: 500px;
+  background-size: cover;
+}
+            </code>
+          </li>
+        </ul>
+        <p>Ha hozzáadunk a "Magyarország" weboldalunkhoz egy képet, például Magyarország címerét, amelyet a fejléc jobboldalán helyezünk el, akkor a fentebbi kódunkat a következőképp egészíthetjük ki:</p>
+        <h4>HTML</h4>
+        <code>
+&lt;div class="col-1 header">
+&nbsp;&nbsp;&lt;h1>Magyarország</h1>
+&nbsp;&nbsp;&lt;div class="coat-arms">
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;img src="(url)" alt="coat of arms hungary">
+&nbsp;&nbsp;&lt;/div>
+&lt;/div>
+        </code>
+        <h4>CSS</h4>
+        <code>
+          .header {
+  background-color: #CE2939;
+  color: #ffffff;
+  padding: 10px;
+  display: flex;
+}
+
+h1 {
+  padding: 15px 15px;
+  margin-right: auto;
+}
+
+
+img  {
+  max-width: 100%;
+  height: 100px;
+  background-size: cover;
+}
+        </code>
+        </article>
+      </section>
+
+            <section class="main-section" id="Media_query">
+        <header>Media query</header>
+        <article>
+          <p>
+          A "media query" a CSS3-ban bevezetett technika, amely a "@media" tulajdonság használatával szabályozza, hogy a weboldal egyes elemeinek a tulajdonságai, milyen értékeket kapjanak a különböző képernyőszélességek függvényében. Például megadhatjuk, hogy a háttérszín 600px szélesség alatt kék legyen, míg afölött továbbra is fekete marad:
+        </p>
+        <h4>CSS</h4>
+        <code>
+  body {
+    background-color: black;
+  }
+  
+  @media only screen and (max-width: 600px) {
+  body {
+    background-color: blue;
+  }
+}
+        </code>
+        <p>
+          A "@media" tulajdonság segítségével a különböző képernyők méretéhez szabhatjuk az oszlopok és képek elrendezését és megjelenését is is. A korábban létrehozott "Magyarország" oldalt például a jobb mobilmegjelenés érdekében így módosíthatjuk:
+        </p>
+        <h4>CSS</h4>
+        <code>
+  @media only screen and (max-width: 600px) {
+  /* Extra small devices: */
+  .col-1 {
+    width: 100%;}
+  .col-2 {
+    width: 100%;
+    text-align: center;}
+  .col-3 {
+    width: 100%;}
+  .col-4 {
+    width: 100%;
+    text-align: center;}
+
+  img {
+    display: none;
+  }
+}
+        </code>
+        <p> Az így elkészült RWD alapú weboldalt lásd <a href="https://bodevelop.github.io/hungary.github.io/">itt</a>.
+        </article>
+      </section>
+
+      <section class="main-section" id="Forrás">
+        <header>Forrás</header>
+        <article>
+          <p>
+              A leírás és az egyes példák forrása:
+              <a
+                href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide"
+                target="_blank"
+                >w3schools</a
+              >.
+            </p>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>
